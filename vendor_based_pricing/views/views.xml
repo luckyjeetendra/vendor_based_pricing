@@ -1,0 +1,36 @@
+<odoo>
+  <data>
+
+    <!-- Display Vendor Product Quantity in vendor form view -->
+    <record id="vendor_product_qty_view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.product.qty.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                
+                <field name="supplier_rank" invisible="1"/>
+                <page string="Vendor Product Qty" name="vendor_product_qty_lines" attrs="{'invisible':[('supplier_rank','=',0)]}">
+                    <field
+                        name="product_qty_line"
+                        mode="tree"
+                        >
+                        <tree
+                            string="Vendor Product Qty"
+                            editable="bottom"
+                        >
+                            <field
+                                name="product_id"
+                                force_save="1"
+                                widget="product_configurator"
+                            />
+                            <field name="product_qty"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>
